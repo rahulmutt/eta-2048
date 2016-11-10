@@ -1,55 +1,57 @@
 module Rendering (drawBoard) where
 
-import Graphics.Gloss
+import JavaFX (Color, makeColorI, black, white)
+import JavaFX.Picture
 
 import GameModel
 import Types
 
-rowHeight :: Float
+rowHeight :: Double
 rowHeight = 100
 
 tilePrecision :: Int
 tilePrecision = 10
 
-tileS :: Float
+tileS :: Double
 tileS = 90
 
-tileRoundness :: Float
+tileRoundness :: Double
 tileRoundness = 4
 
-textScale :: Float
+textScale :: Double
 textScale = 0.2
 
 tileBackColor :: Color
 tileBackColor = makeColorI 205 192 180 255
 
-roundedRect :: Int -> Float -> Float -> Float -> Picture
-roundedRect n w h r = pictures [ drawQuarterRoundedRect n w h r
-                               , rotate 90 $ drawQuarterRoundedRect n w h r
-                               , rotate 180 $ drawQuarterRoundedRect n w h r
-                               , rotate 270 $ drawQuarterRoundedRect n w h r
-                               ]
+-- roundedRect :: Int -> Double -> Double -> Double -> Picture
+-- roundedRect n w h r = rounded
+  -- pictures [ drawQuarterRoundedRect n w h r
+  --                              , rotate 90 $ drawQuarterRoundedRect n w h r
+  --                              , rotate 180 $ drawQuarterRoundedRect n w h r
+  --                              , rotate 270 $ drawQuarterRoundedRect n w h r
+  --                              ]
 
-getPoint :: Float -> Float -> Float -> Float -> (Float,Float)
-getPoint x y r th = (x+r*cos th, y+r*sin th)
+-- getPoint :: Double -> Double -> Double -> Double -> (Double,Double)
+-- getPoint x y r th = (x+r*cos th, y+r*sin th)
 
-arcPath :: Int -> (Float,Float) -> Float -> Path
-arcPath n (x,y) r = map (getPoint x y r) $ 0.0 : map (\v -> pi / 2 / fromIntegral v) (reverse [1..n+1])
+-- arcPath :: Int -> (Double,Double) -> Double -> Path
+-- arcPath n (x,y) r = map (getPoint x y r) $ 0.0 : map (\v -> pi / 2 / fromIntegral v) (reverse [1..n+1])
 
-quarterRoundedRect :: Int -> Float -> Float -> Float -> Path
-quarterRoundedRect n w h r = [(0,0), (0,h/2)]
-                          ++ reverse (arcPath n (w / 2 - r, h / 2 - r) r)
-                          ++ [(w/2,0)]
+-- quarterRoundedRect :: Int -> Double -> Double -> Double -> Path
+-- quarterRoundedRect n w h r = [(0,0), (0,h/2)]
+--                           ++ reverse (arcPath n (w / 2 - r, h / 2 - r) r)
+--                           ++ [(w/2,0)]
 
-drawQuarterRoundedRect :: Int -> Float -> Float -> Float -> Picture
-drawQuarterRoundedRect n w h r = polygon $ quarterRoundedRect n w h r
+-- drawQuarterRoundedRect :: Int -> Double -> Double -> Double -> Picture
+-- drawQuarterRoundedRect n w h r = polygon $ quarterRoundedRect n w h r
 
-drawTileBack :: Float -> Picture
+drawTileBack :: Double -> Picture
 drawTileBack x = color tileBackColor (translate x 0 (roundedRect tilePrecision tileS tileS tileRoundness))
 
 -- Takes x-offset and tile and draws the tile itself
-drawTile :: Float -> Tile -> Picture
-drawTile x tile = 
+drawTile :: Double -> Tile -> Picture
+drawTile x tile =
     let background = [color (tileColor tile) $ roundedRect tilePrecision tileS tileS tileRoundness]
         number = if tileToInt tile > 0
                    then [translate (-20) (-10) $ scale textScale textScale $ text $ show $ tileToInt tile]

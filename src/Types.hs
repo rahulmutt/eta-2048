@@ -11,11 +11,7 @@ module Types ( InputEvent
 
 import System.Random (StdGen)
 import FRP.Yampa (Event)
-import qualified Graphics.Gloss.Interface.IO.Game as G
-
--- | A usefule type synonym for Gloss event values, to avoid confusion
--- between Gloss and Yampa.
-type InputEvent = G.Event
+import JavaFX.Types (InputEvent)
 
 data Tile = Number Int | Empty deriving (Eq, Show)
 
