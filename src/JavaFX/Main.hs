@@ -52,6 +52,9 @@ playFX (title, backgroundColor, width, height)
           width <- stage <.> getWidth
           height <- stage <.> getHeight
           gc <.> renderAction width height (drawPicture picture)
+          io $ do
+            world' <- worldAdvance (1 / 60) world
+            writeIORef worldSR world'
 
 renderAction :: Double -> Double -> Render () -> Render ()
 renderAction width height render = do
