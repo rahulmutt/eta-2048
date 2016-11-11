@@ -22,6 +22,15 @@ instance Class Stage where
   obj = Stage
   unobj (Stage o) = o
 
+data {-# CLASS "javafx.scene.Scene" #-} Scene
+  = Scene (Object# Scene)
+
+type instance Super Scene = Object
+
+instance Class Scene where
+  obj = Scene
+  unobj (Scene o) = o
+
 data {-# CLASS "javafx.scene.Parent" #-} Parent
   = Parent (Object# Parent)
 
@@ -39,9 +48,6 @@ instance Class Group where
   unobj (Group o) = o
 
 type instance Super Group = Parent
-
-data {-# CLASS "javafx.scene.Scene" #-} Scene
-  = Scene (Object# Scene)
 
 data {-# CLASS "javafx.scene.paint.Color" #-} Color = Clr (Object# Color)
 
@@ -129,3 +135,9 @@ data {-# CLASS "javafx.collections.ObservableList a" #-} ObservableList a
 instance Class (ObservableList a) where
   obj = ObservableList
   unobj (ObservableList o) = o
+
+data {-# CLASS "javafx.scene.text.TextAlignment" #-} TextAlignment
+  = TextAlignment (Object# TextAlignment)
+
+data {-# CLASS "javafx.geometry.VPos" #-} VPos
+  = VPos (Object# VPos)

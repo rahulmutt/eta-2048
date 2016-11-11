@@ -46,6 +46,15 @@ foreign import java unsafe save :: Render ()
 
 foreign import java unsafe restore :: Render ()
 
+foreign import java unsafe "@static @field javafx.scene.text.TextAlignment.CENTER"
+  alignCenter :: TextAlignment
+
+foreign import java unsafe "@static @field javafx.geometry.VPos.CENTER"
+  vposCenter :: VPos
+
+foreign import java unsafe setTextAlign    :: TextAlignment -> Render ()
+foreign import java unsafe setTextBaseline :: VPos -> Render ()
+
 foreign import java unsafe "strokeText" strokeText' :: JString -> Double -> Double -> Render ()
 
 strokeText :: String -> Double -> Double -> Render ()
@@ -87,15 +96,15 @@ foreign import java unsafe getCode :: KeyEvent -> KeyCode
 
 -- Event Handling
 foreign import java unsafe "@wrapper handle"
-  action :: (Extends a Event)
-         => (a -> Java (EventHandler a) ())
-         -> EventHandler a
+  handleEvent :: (Extends a Event)
+              => (a -> Java (EventHandler a) ())
+              -> EventHandler a
 
 foreign import java unsafe "setOnKeyPressed" setOnKeyPressed' ::
   EventHandler KeyEvent -> Java Scene ()
 
 setOnKeyPressed :: (KeyEvent -> Java (EventHandler KeyEvent) ()) -> Java Scene ()
-setOnKeyPressed f = setOnKeyPressed' (action f)
+setOnKeyPressed f = setOnKeyPressed' (handleEvent f)
 
 foreign import java unsafe "getChildren" getChildren :: (Extends c Parent) => Java c (ObservableList Node)
 

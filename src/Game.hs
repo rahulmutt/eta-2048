@@ -27,7 +27,7 @@ outOfMoves = proc s -> do
 -- | Start the game using the initial game state (empty board with score 0)
 -- and placing two initial tiles randomly onto the board
 gameAlive :: StdGen -> SF GameInput GameState
-gameAlive g = 
+gameAlive g =
     let (float1, g') = random g
         (float2, g'') = random g'
         (float3, g''') = random g''

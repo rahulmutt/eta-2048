@@ -32,8 +32,15 @@ playFX (title, backgroundColor, width, height)
           scene <- newScene root width height backgroundColor
           canvas <- newCanvas width height
           gc <- canvas <.> getGraphicsContext2D
+          gc <.> setTextAlign alignCenter
+          gc <.> setTextBaseline vposCenter
           animationTimer (mainLoop stage worldSR gc) <.> animationStart
           root <.> getChildren >- addChild canvas
+          scene <.> setOnKeyPressed
+            (\ke -> io $ do
+                world <- readIORef worldSR
+                world' <- worldHandleEvent ke world
+                writeIORef worldSR world')
           stage <.> (do
             setTitle title
             setScene scene

@@ -24,28 +24,6 @@ textScale = 5
 tileBackColor :: Color
 tileBackColor = makeColorI 205 192 180 255
 
--- roundedRect :: Int -> Double -> Double -> Double -> Picture
--- roundedRect n w h r = rounded
-  -- pictures [ drawQuarterRoundedRect n w h r
-  --                              , rotate 90 $ drawQuarterRoundedRect n w h r
-  --                              , rotate 180 $ drawQuarterRoundedRect n w h r
-  --                              , rotate 270 $ drawQuarterRoundedRect n w h r
-  --                              ]
-
--- getPoint :: Double -> Double -> Double -> Double -> (Double,Double)
--- getPoint x y r th = (x+r*cos th, y+r*sin th)
-
--- arcPath :: Int -> (Double,Double) -> Double -> Path
--- arcPath n (x,y) r = map (getPoint x y r) $ 0.0 : map (\v -> pi / 2 / fromIntegral v) (reverse [1..n+1])
-
--- quarterRoundedRect :: Int -> Double -> Double -> Double -> Path
--- quarterRoundedRect n w h r = [(0,0), (0,h/2)]
---                           ++ reverse (arcPath n (w / 2 - r, h / 2 - r) r)
---                           ++ [(w/2,0)]
-
--- drawQuarterRoundedRect :: Int -> Double -> Double -> Double -> Picture
--- drawQuarterRoundedRect n w h r = polygon $ quarterRoundedRect n w h r
-
 drawTileBack :: Double -> Picture
 drawTileBack x = color tileBackColor (translate x 0 (roundedRect tilePrecision tileS tileS tileRoundness))
 
@@ -54,9 +32,11 @@ drawTile :: Double -> Tile -> Picture
 drawTile x tile =
     let background = [color (tileColor tile) $ roundedRect tilePrecision tileS tileS tileRoundness]
         number = if tileToInt tile > 0
-                   then [translate (-4) (-14) $
-                         scale textScale textScale $ text $ show $ tileToInt tile]
+                   then [translate 0 (-30) $
+                         scale scaleFactor scaleFactor
+                         $ text $ show $ tileToInt tile]
                    else []
+        scaleFactor = textScale / 1.7
         curScale = 1
     in pictures [ drawTileBack x
                 , translate x 0 $ scale curScale curScale $ pictures $ background ++ number
@@ -72,9 +52,10 @@ drawRow tile =
                                     ])
 
 gameOverMessage :: Picture
-gameOverMessage = pictures [ translate (-500) (-500) $ color translucentWhite $ rectangleSolid 2000 2000
-                           , translate (-335) (-150) $ scale 0.5 0.5 $ color black $ text "Game Over"
-                           ]
+gameOverMessage = pictures [ translate (-150) (-525) $
+                             color translucentWhite $ rectangleSolid 500 500
+                           , translate (-30) 10 $
+                             scale textScale textScale $ color black $ text "Game Over" ]
   where translucentWhite = makeColorI 255 255 255 150
 
 -- | Draw current board representation depending on the status of the game.
@@ -90,7 +71,9 @@ drawBoard gameState =
        , translate 0 (-rowHeight) (drawRow r2)
        , translate 0 (-rowHeight * 2) (drawRow r3)
        , translate 0 (-rowHeight * 3) (drawRow r4)
-       , translate (-300) 60 $ scale 0.2 0.2 $ color white $ text $ "Score: " ++ show (score gameState)
+       , translate (-160) (-95) $
+         scale (textScale / 3) (textScale / 3) $
+         color black $ text $ "Score: " ++ show (score gameState)
        ] ++ gameOverPicture
   where gameOverPicture = [gameOverMessage | status gameState == GameOver]
 
@@ -110,9 +93,4 @@ tileColor tile = case tile of
                    Number 512   -> makeColorI 237 200 80 255
                    Number 1024  -> makeColorI 237 197 63 255
                    Number 2048  -> makeColorI 237 194 46 255
-                   Number 4096  -> makeColorI 237 194 46 255 -- TODO: needs appropriate color
-                   Number 8192  -> makeColorI 237 194 46 255 -- TODO: needs appropriate color
-                   Number 16384 -> makeColorI 237 194 46 255 -- TODO: needs appropriate color
-                   Number 32768 -> makeColorI 237 194 46 255 -- TODO: needs appropriate color
-                   Number 65536 -> makeColorI 237 194 46 255 -- TODO: needs appropriate color
                    _            -> makeColorI 238 228 218 90
