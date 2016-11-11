@@ -6,7 +6,8 @@ import Data.IORef
 import System.IO.Unsafe
 import Java
 import JavaFX.Types
-import JavaFX.Picture (Picture(..))
+import JavaFX.Picture (Picture(..), isText)
+import qualified JavaFX.Picture as P
 import JavaFX.Rendering
 
 data {-# CLASS "org.eta.JavaFXApp extends javafx.application.Application" #-}
@@ -56,21 +57,30 @@ renderAction width height render = do
 
 drawPicture :: Picture -> Render ()
 drawPicture = go []
-  where go _ picture =
+  where go [] picture = do
           case picture of
             Blank                    -> return ()
             Rectangle w h            -> fillRect (-w / 2) (h / 2) w h
             RoundRectangle w h rw rh -> fillRoundRect (-w / 2) (h / 2) w h rw rh
-            Text t                   -> saveAndRestore $ scale 1 (-1) >> strokeText t 0 0
-            Color c p                -> saveAndRestore $
-              setFill c >> setStroke c >> go [] p
-            Translate x y p -> saveAndRestore $
-              translate x y >> go [] p -- TODO: Make a stack
-            Rotate deg p -> saveAndRestore $
-              rotate deg >> go [] p -- TODO: Make a stack
-            Scale x y p -> saveAndRestore $
-              scale x y >> go [] p -- TODO: Make a stack
-            Pictures ps -> mapM_ (go []) ps
+            Text t                   -> strokeText t 0 0
+            Pictures ps              -> mapM_ (go []) ps
+            p                        -> go [Blank] picture
+        go ts picture = do
+          case picture of
+            Color     c   p -> go (Color     c   Blank : ts) p
+            Translate x y p -> go (Translate x y Blank : ts) p
+            Rotate    deg p -> go (Rotate    deg Blank : ts) p
+            Scale     x y p -> go (Scale     x y Blank : ts) p
+            p               -> saveAndRestore $ do
+              mapM_ applyTrans (if isText p
+                                then Scale 1 (-1) Blank : ts
+                                else ts)
+              go [] p
+        applyTrans (Color     c   _) = setFill c >> setStroke c
+        applyTrans (Translate x y _) = translate x y
+        applyTrans (Rotate    deg _) = rotate deg
+        applyTrans (Scale     x y _) = scale x y
+        applyTrans _                 = return ()
 
 saveAndRestore :: Render () -> Render ()
 saveAndRestore render = save >> render >> restore

@@ -20,6 +20,17 @@ instance Monoid Picture where
   mappend a b = Pictures [a, b]
   mconcat     = Pictures
 
+-- instance Show Picture where
+--   show Blank                    = "Blank"
+--   show (Rectangle _ _)          = "Rectangle"
+--   show (RoundRectangle _ _ _ _) = "RoundRectangle"
+--   show (Text _)                 = "Text"
+--   show (Color _ _)              = "Color"
+--   show (Translate _ _ _)        = "Translate"
+--   show (Rotate _ _)             = "Rotate"
+--   show (Scale _ _ _)            = "Scale"
+--   show (Pictures _)             = "Pictures"
+
 blank :: Picture
 blank = Blank
 
@@ -47,4 +58,6 @@ scale = Scale
 pictures :: [Picture] -> Picture
 pictures = Pictures
 
-
+isText :: Picture -> Bool
+isText (Text _) = True
+isText _        = False

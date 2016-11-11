@@ -16,10 +16,10 @@ tileS :: Double
 tileS = 90
 
 tileRoundness :: Double
-tileRoundness = 4
+tileRoundness = 20
 
 textScale :: Double
-textScale = 0.2
+textScale = 5
 
 tileBackColor :: Color
 tileBackColor = makeColorI 205 192 180 255
@@ -54,7 +54,8 @@ drawTile :: Double -> Tile -> Picture
 drawTile x tile =
     let background = [color (tileColor tile) $ roundedRect tilePrecision tileS tileS tileRoundness]
         number = if tileToInt tile > 0
-                   then [translate (-20) (-10) $ scale textScale textScale $ text $ show $ tileToInt tile]
+                   then [translate (-4) (-14) $
+                         scale textScale textScale $ text $ show $ tileToInt tile]
                    else []
         curScale = 1
     in pictures [ drawTileBack x
@@ -83,7 +84,7 @@ drawBoard :: GameState -> Picture
 drawBoard gameState =
     let (Board b) = board gameState
         [r1, r2, r3, r4] = b
-    in translate 150 150
+    in translate 150 75
      $ pictures
      $ [ drawRow r1
        , translate 0 (-rowHeight) (drawRow r2)
