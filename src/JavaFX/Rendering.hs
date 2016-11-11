@@ -51,6 +51,11 @@ foreign import java unsafe "strokeText" strokeText' :: JString -> Double -> Doub
 strokeText :: String -> Double -> Double -> Render ()
 strokeText str x y = strokeText' (mkJString str) x y
 
+foreign import java unsafe "fillText" fillText' :: JString -> Double -> Double -> Render ()
+
+fillText :: String -> Double -> Double -> Render ()
+fillText str x y = fillText' (mkJString str) x y
+
 -- Main Loop
 foreign import java unsafe "@wrapper @abstract handle"
   animationTimer :: (Int64 -> Java AnimationTimer ()) -> AnimationTimer

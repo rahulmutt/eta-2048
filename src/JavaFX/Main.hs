@@ -62,7 +62,7 @@ drawPicture = go []
             Blank                    -> return ()
             Rectangle w h            -> fillRect (-w / 2) (h / 2) w h
             RoundRectangle w h rw rh -> fillRoundRect (-w / 2) (h / 2) w h rw rh
-            Text t                   -> strokeText t 0 0
+            Text t                   -> fillText t 0 0
             Pictures ps              -> mapM_ (go []) ps
             p                        -> go [Blank] picture
         go ts picture = do
