@@ -2,7 +2,7 @@
 
 This project is a adaption of [yampa-2048](https://github.com/ksaveljev/yampa-2048) for the Eta programming language. 
 
-![eta-2048 preview](eta-2048.gif)
+![eta-2048 preview](eta2048.gif)
 
 ## Prerequisites
 - JDK 8
