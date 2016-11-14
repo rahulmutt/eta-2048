@@ -1,10 +1,10 @@
-name:                yampa2048
+name:                eta2048
 version:             0.1.0.0
-synopsis:            2048 game clone using Yampa/Gloss
-description:         
+synopsis:            2048 game clone using Yampa & JavaFX
+description:
 
   A simple game clone of a popular 2048 game using Yampa FRP
-  library and Gloss for graphics.
+  library and JavaFX for graphics.
   .
   Use the arrow keys to slide the rows or columns of the board and try to
   survive for as long as possible. When there is no more move possible you will
@@ -13,17 +13,19 @@ description:
 
 license:             MIT
 license-file:        LICENSE
-author:              Konstantin Saveljev <konstantin.saveljev@gmail.com>
-maintainer:          Konstantin Saveljev <konstantin.saveljev@gmail.com>
-copyright:           (C) 2015 Konstantin Saveljev, Josh Kirklin, Maia Werbos
+author:              Rahul Muttineni <rahulmutt@gmail.com>
+                     Konstantin Saveljev <konstantin.saveljev@gmail.com>
+maintainer:          Rahul Muttineni <rahulmutt@gmail.com>
+                     Konstantin Saveljev <konstantin.saveljev@gmail.com>
+copyright:           (C) 2015-2016 Rahul Muttinei, Konstantin Saveljev, Josh Kirklin, Maia Werbos
 category:            Game
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >= 1.18
-homepage:            https://github.com/ksaveljev/yampa-2048
-bug-reports:         https://github.com/ksaveljev/yampa-2048/issues
+homepage:            https://github.com/rahulmutt/eta-2048
+bug-reports:         https://github.com/rahulmutt/eta-2048/issues
 
-executable yampa2048
+executable eta2048
   main-is:             Main.hs
   other-modules:       Game
                      , GameLogic
