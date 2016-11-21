@@ -1,4 +1,4 @@
-{-# LANGUAGE MagicHash, TypeFamilies #-}
+{-# LANGUAGE MagicHash, TypeFamilies, DataKinds #-}
 module JavaFX.Types where
 
 data {-# CLASS "javafx.application.Application" #-} Application
@@ -7,7 +7,7 @@ data {-# CLASS "javafx.application.Application" #-} Application
 data {-# CLASS "javafx.scene.Node" #-} Node
   = Node (Object# Node)
 
-type instance Super Node = Object
+type instance Inherits Node = '[Object]
 
 instance Class Node where
   obj = Node
@@ -16,7 +16,7 @@ instance Class Node where
 data {-# CLASS "javafx.stage.Stage" #-} Stage
   = Stage (Object# Stage)
 
-type instance Super Stage = Object
+type instance Inherits Stage = '[Object]
 
 instance Class Stage where
   obj = Stage
@@ -25,7 +25,7 @@ instance Class Stage where
 data {-# CLASS "javafx.scene.Scene" #-} Scene
   = Scene (Object# Scene)
 
-type instance Super Scene = Object
+type instance Inherits Scene = '[Object]
 
 instance Class Scene where
   obj = Scene
@@ -34,7 +34,7 @@ instance Class Scene where
 data {-# CLASS "javafx.scene.Parent" #-} Parent
   = Parent (Object# Parent)
 
-type instance Super Parent = Node
+type instance Inherits Parent = '[Node]
 
 instance Class Parent where
   obj = Parent
@@ -47,7 +47,7 @@ instance Class Group where
   obj = Group
   unobj (Group o) = o
 
-type instance Super Group = Parent
+type instance Inherits Group = '[Parent]
 
 data {-# CLASS "javafx.scene.paint.Color" #-} Color = Clr (Object# Color)
 
@@ -55,7 +55,7 @@ instance Class Color where
   obj = Clr
   unobj (Clr o) = o
 
-type instance Super Color = Paint
+type instance Inherits Color = '[Paint]
 
 data {-# CLASS "javafx.scene.paint.Paint" #-} Paint = Paint (Object# Paint)
 
@@ -69,11 +69,11 @@ instance Class KeyCode where
   obj = KeyCode
   unobj (KeyCode o) = o
 
-type instance Super KeyCode = Object
+type instance Inherits KeyCode = '[Object]
 
 data {-# CLASS "javafx.scene.input.KeyEvent" #-} KeyEvent = KeyEvent (Object# KeyEvent)
 
-type instance Super KeyEvent = InputEvent
+type instance Inherits KeyEvent = '[InputEvent]
 
 instance Class KeyEvent where
   obj = KeyEvent
@@ -81,7 +81,7 @@ instance Class KeyEvent where
 
 data {-# CLASS "javafx.scene.input.InputEvent" #-} InputEvent = InputEvent (Object# InputEvent)
 
-type instance Super InputEvent = Event
+type instance Inherits InputEvent = '[Event]
 
 instance Class InputEvent where
   obj = InputEvent
@@ -89,7 +89,7 @@ instance Class InputEvent where
 
 data {-# CLASS "javafx.event.Event" #-} Event = Event (Object# Event)
 
-type instance Super Event = Object
+type instance Inherits Event = '[Object]
 
 instance Class Event where
   obj = Event
@@ -104,7 +104,7 @@ instance Class (EventHandler a) where
 
 data {-# CLASS "javafx.scene.canvas.Canvas" #-} Canvas = Canvas (Object# Canvas)
 
-type instance Super Canvas = Node
+type instance Inherits Canvas = '[Node]
 
 instance Class Canvas where
   obj = Canvas
@@ -113,7 +113,7 @@ instance Class Canvas where
 data {-# CLASS "javafx.scene.canvas.GraphicsContext" #-} GraphicsContext
   = GraphicsContext (Object# GraphicsContext)
 
-type instance Super GraphicsContext = Object
+type instance Inherits GraphicsContext = '[Object]
 
 instance Class GraphicsContext where
   obj = GraphicsContext
@@ -123,7 +123,7 @@ instance Class GraphicsContext where
 data {-# CLASS "javafx.animation.AnimationTimer" #-} AnimationTimer
   = AnimationTimer (Object# AnimationTimer)
 
-type instance Super AnimationTimer = Object
+type instance Inherits AnimationTimer = '[Object]
 
 instance Class AnimationTimer where
   obj = AnimationTimer
