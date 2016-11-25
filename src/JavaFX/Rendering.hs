@@ -120,4 +120,4 @@ setTitle = setTitle' . mkJString
 foreign import java unsafe "setScene" setScene :: Scene -> Java Stage ()
 
 foreign import java safe "@static javafx.application.Application.launch"
-  launch :: JClass -> StringArray -> IO ()
+  launch :: JClass -> JStringArray -> IO ()
