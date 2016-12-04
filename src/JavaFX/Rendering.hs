@@ -1,6 +1,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 module JavaFX.Rendering where
 
+import Java
 import JavaFX.Types
 import Data.Int (Int64)
 
@@ -58,21 +59,18 @@ foreign import java unsafe setTextBaseline :: VPos -> Render ()
 foreign import java unsafe "strokeText" strokeText' :: JString -> Double -> Double -> Render ()
 
 strokeText :: String -> Double -> Double -> Render ()
-strokeText str x y = strokeText' (mkJString str) x y
+strokeText str x y = strokeText' (toJString str) x y
 
 foreign import java unsafe "fillText" fillText' :: JString -> Double -> Double -> Render ()
 
 fillText :: String -> Double -> Double -> Render ()
-fillText str x y = fillText' (mkJString str) x y
+fillText str x y = fillText' (toJString str) x y
 
 -- Main Loop
 foreign import java unsafe "@wrapper @abstract handle"
   animationTimer :: (Int64 -> Java AnimationTimer ()) -> AnimationTimer
 
 foreign import java unsafe "start" animationStart :: Java AnimationTimer ()
-
--- Pure Object equality
-foreign import java unsafe equals :: (Extends a Object) => a -> a -> Bool
 
 -- Color
 foreign import java unsafe "@static javafx.scene.paint.Color.rgb"
@@ -115,9 +113,9 @@ foreign import java unsafe "show" showStage :: Java Stage ()
 foreign import java unsafe "setTitle" setTitle' :: JString -> Java Stage ()
 
 setTitle :: String -> Java Stage ()
-setTitle = setTitle' . mkJString
+setTitle = setTitle' . toJString
 
 foreign import java unsafe "setScene" setScene :: Scene -> Java Stage ()
 
 foreign import java safe "@static javafx.application.Application.launch"
-  launch :: JClass -> JStringArray -> IO ()
+  launch :: JClass a -> JStringArray -> IO ()

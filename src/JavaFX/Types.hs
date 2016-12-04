@@ -1,140 +1,85 @@
 {-# LANGUAGE MagicHash, TypeFamilies, DataKinds #-}
 module JavaFX.Types where
 
+import Java (equals)
+
 data {-# CLASS "javafx.application.Application" #-} Application
   = Application (Object# Application)
+  deriving Class
 
 data {-# CLASS "javafx.scene.Node" #-} Node
   = Node (Object# Node)
+  deriving Class
 
-type instance Inherits Node = '[Object]
-
-instance Class Node where
-  obj = Node
-  unobj (Node o) = o
 
 data {-# CLASS "javafx.stage.Stage" #-} Stage
   = Stage (Object# Stage)
-
-type instance Inherits Stage = '[Object]
-
-instance Class Stage where
-  obj = Stage
-  unobj (Stage o) = o
+  deriving Class
 
 data {-# CLASS "javafx.scene.Scene" #-} Scene
   = Scene (Object# Scene)
-
-type instance Inherits Scene = '[Object]
-
-instance Class Scene where
-  obj = Scene
-  unobj (Scene o) = o
+  deriving Class
 
 data {-# CLASS "javafx.scene.Parent" #-} Parent
   = Parent (Object# Parent)
+  deriving Class
 
 type instance Inherits Parent = '[Node]
 
-instance Class Parent where
-  obj = Parent
-  unobj (Parent o) = o
-
 data {-# CLASS "javafx.scene.Group" #-} Group
   = Group (Object# Group)
-
-instance Class Group where
-  obj = Group
-  unobj (Group o) = o
+  deriving Class
 
 type instance Inherits Group = '[Parent]
 
-data {-# CLASS "javafx.scene.paint.Color" #-} Color = Clr (Object# Color)
-
-instance Class Color where
-  obj = Clr
-  unobj (Clr o) = o
+data {-# CLASS "javafx.scene.paint.Color" #-} Color
+  = Clr (Object# Color)
+  deriving Class
 
 type instance Inherits Color = '[Paint]
 
 data {-# CLASS "javafx.scene.paint.Paint" #-} Paint = Paint (Object# Paint)
-
-instance Class Paint where
-  obj = Paint
-  unobj (Paint o) = o
+  deriving Class
 
 data {-# CLASS "javafx.scene.input.KeyCode" #-} KeyCode = KeyCode (Object# KeyCode)
+  deriving Class
 
-instance Class KeyCode where
-  obj = KeyCode
-  unobj (KeyCode o) = o
-
-type instance Inherits KeyCode = '[Object]
+instance Eq KeyCode where
+  (==) = equals
 
 data {-# CLASS "javafx.scene.input.KeyEvent" #-} KeyEvent = KeyEvent (Object# KeyEvent)
+  deriving Class
 
 type instance Inherits KeyEvent = '[InputEvent]
 
-instance Class KeyEvent where
-  obj = KeyEvent
-  unobj (KeyEvent o) = o
-
 data {-# CLASS "javafx.scene.input.InputEvent" #-} InputEvent = InputEvent (Object# InputEvent)
+  deriving Class
 
 type instance Inherits InputEvent = '[Event]
 
-instance Class InputEvent where
-  obj = InputEvent
-  unobj (InputEvent o) = o
-
 data {-# CLASS "javafx.event.Event" #-} Event = Event (Object# Event)
-
-type instance Inherits Event = '[Object]
-
-instance Class Event where
-  obj = Event
-  unobj (Event o) = o
+  deriving Class
 
 data {-# CLASS "javafx.event.EventHandler" #-} EventHandler a
   = EventHandler (Object# (EventHandler a))
-
-instance Class (EventHandler a) where
-  obj = EventHandler
-  unobj (EventHandler o) = o
+  deriving Class
 
 data {-# CLASS "javafx.scene.canvas.Canvas" #-} Canvas = Canvas (Object# Canvas)
+  deriving Class
 
 type instance Inherits Canvas = '[Node]
 
-instance Class Canvas where
-  obj = Canvas
-  unobj (Canvas o) = o
-
 data {-# CLASS "javafx.scene.canvas.GraphicsContext" #-} GraphicsContext
   = GraphicsContext (Object# GraphicsContext)
-
-type instance Inherits GraphicsContext = '[Object]
-
-instance Class GraphicsContext where
-  obj = GraphicsContext
-  unobj (GraphicsContext o) = o
-
+  deriving Class
 
 data {-# CLASS "javafx.animation.AnimationTimer" #-} AnimationTimer
   = AnimationTimer (Object# AnimationTimer)
-
-type instance Inherits AnimationTimer = '[Object]
-
-instance Class AnimationTimer where
-  obj = AnimationTimer
-  unobj (AnimationTimer o) = o
+  deriving Class
 
 data {-# CLASS "javafx.collections.ObservableList a" #-} ObservableList a
   = ObservableList (Object# (ObservableList a))
-
-instance Class (ObservableList a) where
-  obj = ObservableList
-  unobj (ObservableList o) = o
+  deriving Class
 
 data {-# CLASS "javafx.scene.text.TextAlignment" #-} TextAlignment
   = TextAlignment (Object# TextAlignment)

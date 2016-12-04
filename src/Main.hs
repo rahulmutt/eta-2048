@@ -14,12 +14,12 @@ import Rendering
 parseInput :: SF (Event KeyEvent) GameInput
 parseInput = arr f
   where f event@(Event e)
-          | is keyUP    = event `tag` Types.Up
-          | is keyDOWN  = event `tag` Types.Down
-          | is keyLEFT  = event `tag` Types.Left
-          | is keyRIGHT = event `tag` Types.Right
-          | otherwise   = event `tag` None
-          where is = equals (getCode e)
+          | code == keyUP    = event `tag` Types.Up
+          | code == keyDOWN  = event `tag` Types.Down
+          | code == keyLEFT  = event `tag` Types.Left
+          | code == keyRIGHT = event `tag` Types.Right
+          | otherwise        = event `tag` None
+          where code = getCode e
         f event = event `tag` None
 
 -- | After parsing the game input and reacting to it we need to draw the

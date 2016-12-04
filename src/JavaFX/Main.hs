@@ -3,6 +3,7 @@ module JavaFX.Main where
 
 import System.Environment
 import Data.IORef
+import Data.Proxy
 import System.IO.Unsafe
 import Java
 import JavaFX.Types
@@ -26,7 +27,7 @@ playFX (title, backgroundColor, width, height)
   worldSR <- newIORef worldStart
   writeIORef startRef (startAction worldSR)
   jargs <- getJavaArgs
-  launch (getClass "org.eta.JavaFXApp") jargs
+  launch (getClass (Proxy :: Proxy JavaFXApp)) jargs
   where startAction worldSR stage = do
           root  <- newGroup
           scene <- newScene root width height backgroundColor
