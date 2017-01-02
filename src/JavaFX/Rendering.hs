@@ -56,15 +56,9 @@ foreign import java unsafe "@static @field javafx.geometry.VPos.CENTER"
 foreign import java unsafe setTextAlign    :: TextAlignment -> Render ()
 foreign import java unsafe setTextBaseline :: VPos -> Render ()
 
-foreign import java unsafe "strokeText" strokeText' :: JString -> Double -> Double -> Render ()
+foreign import java unsafe "strokeText" strokeText :: String -> Double -> Double -> Render ()
 
-strokeText :: String -> Double -> Double -> Render ()
-strokeText str x y = strokeText' (toJString str) x y
-
-foreign import java unsafe "fillText" fillText' :: JString -> Double -> Double -> Render ()
-
-fillText :: String -> Double -> Double -> Render ()
-fillText str x y = fillText' (toJString str) x y
+foreign import java unsafe "fillText" fillText :: String -> Double -> Double -> Render ()
 
 -- Main Loop
 foreign import java unsafe "@wrapper @abstract handle"
@@ -110,10 +104,7 @@ foreign import java unsafe "@interface add" addChild :: (Extends a Object, Exten
 
 foreign import java unsafe "show" showStage :: Java Stage ()
 
-foreign import java unsafe "setTitle" setTitle' :: JString -> Java Stage ()
-
-setTitle :: String -> Java Stage ()
-setTitle = setTitle' . toJString
+foreign import java unsafe "setTitle" setTitle :: String -> Java Stage ()
 
 foreign import java unsafe "setScene" setScene :: Scene -> Java Stage ()
 

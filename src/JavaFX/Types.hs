@@ -42,10 +42,7 @@ data {-# CLASS "javafx.scene.paint.Paint" #-} Paint = Paint (Object# Paint)
   deriving Class
 
 data {-# CLASS "javafx.scene.input.KeyCode" #-} KeyCode = KeyCode (Object# KeyCode)
-  deriving Class
-
-instance Eq KeyCode where
-  (==) = equals
+  deriving (Class, Eq)
 
 data {-# CLASS "javafx.scene.input.KeyEvent" #-} KeyEvent = KeyEvent (Object# KeyEvent)
   deriving Class
