@@ -6,7 +6,6 @@ import JavaFX.Picture (Picture, blank)
 import JavaFX.Types (Color, KeyEvent)
 import JavaFX.Main (playFX)
 import FRP.Yampa (Event(..), SF, reactInit, react)
-import Types (InputEvent)
 
 playYampa :: (String, Color, Double, Double) -> SF (Event KeyEvent) Picture -> IO ()
 playYampa display mainSF = do
@@ -25,7 +24,7 @@ playYampa display mainSF = do
                      then react handle (delta', Just NoEvent) >> return 0.0
                      else return (-delta'))
 
-  where delta = 0.01 / fromIntegral frequency
+  where delta = 0.01 / frequency
         frequency = 60
 
 

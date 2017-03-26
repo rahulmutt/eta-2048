@@ -10,7 +10,6 @@ module GameModel ( emptyBoard
 
 import System.Random (StdGen)
 import Data.List (transpose)
-import Control.Applicative ((<$>))
 
 import Types
 

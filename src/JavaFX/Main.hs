@@ -8,7 +8,6 @@ import System.IO.Unsafe
 import Java
 import JavaFX.Types
 import JavaFX.Picture (Picture(..), isText)
-import qualified JavaFX.Picture as P
 import JavaFX.Rendering
 
 data {-# CLASS "org.eta.JavaFXApp extends javafx.application.Application" #-}
@@ -36,7 +35,7 @@ playFX (title, backgroundColor, width, height)
           gc <.> setTextAlign alignCenter
           gc <.> setTextBaseline vposCenter
           animationTimer (mainLoop stage worldSR gc) <.> animationStart
-          root <.> getChildren >- addChild canvas
+          _ <- root <.> getChildren >- addChild canvas
           scene <.> setOnKeyPressed
             (\ke -> io $ do
                 world <- readIORef worldSR
@@ -47,12 +46,12 @@ playFX (title, backgroundColor, width, height)
             setScene scene
             showStage)
 
-        mainLoop stage worldSR gc now = do
+        mainLoop stage worldSR gc _ = do
           world <- io $ readIORef worldSR
           picture <- io $ worldToPicture world
-          width <- stage <.> getWidth
-          height <- stage <.> getHeight
-          gc <.> renderAction width height (drawPicture picture)
+          width' <- stage <.> getWidth
+          height' <- stage <.> getHeight
+          gc <.> renderAction width' height' (drawPicture picture)
           io $ do
             world' <- worldAdvance (1 / 60) world
             writeIORef worldSR world'
@@ -75,7 +74,7 @@ drawPicture = go []
             RoundRectangle w h rw rh -> fillRoundRect (-w / 2) (h / 2) w h rw rh
             Text t                   -> fillText t 0 0
             Pictures ps              -> mapM_ (go []) ps
-            p                        -> go [Blank] picture
+            _                        -> go [Blank] picture
         go ts picture = do
           case picture of
             Color     c   p -> go (Color     c   Blank : ts) p

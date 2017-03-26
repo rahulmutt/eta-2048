@@ -1,6 +1,6 @@
 module Rendering (drawBoard) where
 
-import JavaFX (Color, makeColorI, black, white)
+import JavaFX (Color, makeColorI, black)
 import JavaFX.Picture
 
 import GameModel

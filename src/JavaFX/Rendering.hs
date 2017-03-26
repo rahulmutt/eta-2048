@@ -3,7 +3,6 @@ module JavaFX.Rendering where
 
 import Java
 import JavaFX.Types
-import Data.Int (Int64)
 
 type Render a = Java GraphicsContext a
 
