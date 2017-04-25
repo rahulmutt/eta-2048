@@ -1,5 +1,7 @@
 # Eta 2048
 
+[![Build Status](https://circleci.com/gh/rahulmutt/eta-2048.svg?style=shield&circle-token=42407660d106157439d23a95b2eca13a08ea4724)](https://circleci.com/gh/rahulmutt/eta-2048)
+
 This project is a adaption of [yampa-2048](https://github.com/ksaveljev/yampa-2048) for the Eta programming language. 
 
 ![eta-2048 preview](eta2048.gif)

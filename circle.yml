@@ -1,0 +1,28 @@
+machine:
+  services:
+    - docker
+  java:
+    version: oraclejdk8
+  environment:
+    PATH: ${HOME}/.local/bin:$PATH
+
+dependencies:
+  cache_directories:
+    - ~/.stack
+    - ~/.local
+    - ~/.etlas
+    - ~/.coursier
+    - ~/eta
+
+  pre:
+    - sudo apt-get update
+    - mkdir -p ~/.local/bin
+    - wget -qO- https://get.haskellstack.org/ | sh
+
+  override:
+    - scripts/eta-install.sh
+    - etlas install --dependencies-only
+
+test:
+  override:
+    - etlas build
