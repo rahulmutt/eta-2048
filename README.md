@@ -16,8 +16,8 @@ This project is a adaption of [yampa-2048](https://github.com/ksaveljev/yampa-20
 ## Running
 ```
 $ cd eta-2048
-$ epm install Yampa # First-time only
-$ epm run
+$ etlas install --dependencies-only # First-time only
+$ etlas run
 ```
 
 ## Changes from Original
