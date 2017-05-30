@@ -12,6 +12,7 @@ import JavaFX.Rendering
 
 data {-# CLASS "org.eta.JavaFXApp extends javafx.application.Application" #-}
   JavaFXApp = JavaFXApp (Object# JavaFXApp)
+  deriving Class
 
 type FX a = Java JavaFXApp a
 
