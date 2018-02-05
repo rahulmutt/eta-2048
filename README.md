@@ -11,7 +11,7 @@ This project is a adaption of [yampa-2048](https://github.com/ksaveljev/yampa-20
   - JavaFX must be installed in the home directory of the JDK.
     - If you're running Ubuntu OpenJDK, you'll have to do an [extra step](http://stackoverflow.com/questions/34243982/why-is-javafx-is-not-included-in-openjdk-8-on-ubuntu-wily-15-10):
       `sudo apt-get install openjfx`
-- [Eta](https://github.com/typelead/eta) (On `master` branch)
+- [Eta](https://eta-lang.org/docs/eta-concepts/getting-started/install-eta)
 
 ## Running
 ```
