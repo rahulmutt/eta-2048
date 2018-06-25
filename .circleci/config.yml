@@ -7,18 +7,16 @@ jobs:
     - checkout
 
     - restore_cache:
-        key: eta-2048-v1200-etlas-cache-
+        key: eta-2048-v1400-etlas-cache-
 
     - run: etlas update
-
-    - run: etlas install
+    - run: etlas build
 
     - save_cache:
-        key: eta-2048-v1200-etlas-cache-{{ epoch }}
+        key: eta-2048-v1400-etlas-cache-{{ epoch }}
         paths:
           - "~/.etlas/config"
           - "~/.etlas/packages"
-          - "~/.etlas/patches"
           - "~/.etlas/tools"
 
 workflows:
