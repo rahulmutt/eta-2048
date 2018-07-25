@@ -1,5 +1,5 @@
 -- Inspired from Graphics.Gloss.Data.Picture
-
+{-# LANGUAGE CPP #-}
 module JavaFX.Picture where
 
 import JavaFX.Types
@@ -17,8 +17,13 @@ data Picture
 
 instance Monoid Picture where
   mempty      = blank
-  mappend a b = Pictures [a, b]
   mconcat     = Pictures
+#if !MIN_VERSION_base(4,10,0)
+  mappend a b = Pictures [a, b]
+#else
+instance Semigroup Picture where
+  <> a b = Pictures [a, b]
+#endif
 
 -- instance Show Picture where
 --   show Blank                    = "Blank"
