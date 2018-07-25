@@ -22,7 +22,7 @@ instance Monoid Picture where
   mappend a b = Pictures [a, b]
 #else
 instance Semigroup Picture where
-  <> a b = Pictures [a, b]
+  (<>) a b = Pictures [a, b]
 #endif
 
 -- instance Show Picture where
